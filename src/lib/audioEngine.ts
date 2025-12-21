@@ -1,4 +1,4 @@
-import { ADSR_PRESETS } from '@/data/adsrPresets.ts'
+import { ADSR_PRESETS } from '../data/adsrPresets.ts'
 import type { ChordType } from '@/types/chordTypes.ts'
 export interface ADSRParams {
   attack: number
@@ -13,7 +13,7 @@ const CHORD_INTERVALS: Record<ChordType, number[]> = {
   augmented: [0, 4, 8],
   diminished: [0, 3, 6],
 }
-const getChordIntervals = (chordType: ChordType): number[] => {
+export const getChordIntervals = (chordType: ChordType): number[] => {
   return CHORD_INTERVALS[chordType]
 }
 const getChordFrequencies = (root: number, chordType: ChordType): number[] => {
