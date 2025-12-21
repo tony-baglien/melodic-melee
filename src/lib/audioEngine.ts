@@ -1,11 +1,6 @@
 import { ADSR_PRESETS } from '../data/adsrPresets.ts'
 import type { ChordType } from '@/types/chordTypes.ts'
-export interface ADSRParams {
-  attack: number
-  decay: number
-  sustain: number
-  release: number
-}
+import type { ADSRParams } from '@/types/adsr.ts'
 
 const CHORD_INTERVALS: Record<ChordType, number[]> = {
   major: [0, 4, 7],
@@ -110,7 +105,6 @@ export const playChord = (
   chordType: ChordType = 'major'
 ): OscillatorNode[] => {
   const chordFrequencies = getChordFrequencies(frequency, chordType)
-  console.log('chordFrequencies', chordFrequencies)
 
   return chordFrequencies.map((freq) => {
     return playNote(audioContext, freq, 1 / chordFrequencies.length)

@@ -28,13 +28,11 @@ export const useAudioEngine = () => {
   }, [])
 
   const playNote = (frequency: number) => {
-    const note = playNoteLib(audioContextRef.current!, frequency)
-    console.log(note)
+    playNoteLib(audioContextRef.current!, frequency)
   }
 
   const playChord = (frequency: number, chordType: ChordType) => {
-    const chord = playChordLib(audioContextRef.current!, frequency, chordType)
-    console.log(chord)
+    playChordLib(audioContextRef.current!, frequency, chordType)
   }
   return { initAudio, isInitialized, playNote, playChord }
 }
