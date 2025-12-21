@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
-import { playNote as playNoteLib } from '@/lib/audoEngine.ts'
+import type { ChordType } from '@/types/chordTypes'
+import {
+  playNote as playNoteLib,
+  playChord as playChordLib,
+} from '@/lib/audioEngine'
 
 export const useAudioEngine = () => {
   const audioContextRef = useRef<AudioContext | null>(null)
@@ -24,10 +28,13 @@ export const useAudioEngine = () => {
   }, [])
 
   const playNote = (frequency: number) => {
-    const now = audioContextRef.current!.currentTime
     const note = playNoteLib(audioContextRef.current!, frequency)
-    note.start(now)
-    note.stop(now + 0.7)
+    console.log(note)
   }
-  return { initAudio, isInitialized, playNote }
+
+  const playChord = (frequency: number, chordType: ChordType) => {
+    const chord = playChordLib(audioContextRef.current!, frequency, chordType)
+    console.log(chord)
+  }
+  return { initAudio, isInitialized, playNote, playChord }
 }
