@@ -1,15 +1,15 @@
-import { useAudioEngine } from '@/hooks/useAudioEngine'
 import './App.css'
+import { useGameLoop } from '@/hooks/useGameLoop'
+import { useGameStore } from '@/store/gameStore'
 
 function App() {
-  const { initAudio, isInitialized, playRandomChord } = useAudioEngine()
+  useGameLoop()
+  const startRound = useGameStore((state) => state.startRound)
+  const gamePhase = useGameStore((state) => state.gamePhase)
   return (
     <>
-      {!isInitialized ? (
-        <button onClick={initAudio}>Start Game</button>
-      ) : (
-        <button onClick={() => playRandomChord(440)}>Play a 440</button>
-      )}
+      <button onClick={startRound}>Start</button>
+      {gamePhase === 'listening' && <div>This is playing</div>}
     </>
   )
 }

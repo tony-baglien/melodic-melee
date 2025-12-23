@@ -1,4 +1,4 @@
-import type { ADSRPresetsData } from '@/types/adsr'
+import type { ADSRPresetsData } from '@/constants/audio'
 export const ADSR_PRESETS: ADSRPresetsData = {
   default: {
     name: 'Default',
