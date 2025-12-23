@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import type { ChordType } from '@/types/chordTypes'
+import type { ChordQuality } from '@/constants/chords'
+import { useGameStore } from '@/store/gameStore'
 import {
   playNote as playNoteLib,
   playChord as playChordLib,
@@ -31,8 +32,13 @@ export const useAudioEngine = () => {
     playNoteLib(audioContextRef.current!, frequency)
   }
 
-  const playChord = (frequency: number, chordType: ChordType) => {
-    playChordLib(audioContextRef.current!, frequency, chordType)
+  const playChord = (frequency: number, chordQuality: ChordQuality) => {
+    playChordLib(audioContextRef.current!, frequency, chordQuality)
   }
-  return { initAudio, isInitialized, playNote, playChord }
+  const playRandomChord = (frequency: number) => {
+    const randomQuality = useGameStore.getState().getRandomQuality()
+    playChordLib(audioContextRef.current!, frequency, randomQuality)
+  }
+
+  return { initAudio, isInitialized, playNote, playChord, playRandomChord }
 }

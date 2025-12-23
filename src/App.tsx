@@ -2,13 +2,13 @@ import { useAudioEngine } from '@/hooks/useAudioEngine'
 import './App.css'
 
 function App() {
-  const { initAudio, isInitialized, playChord } = useAudioEngine()
+  const { initAudio, isInitialized, playRandomChord } = useAudioEngine()
   return (
     <>
       {!isInitialized ? (
         <button onClick={initAudio}>Start Game</button>
       ) : (
-        <button onClick={() => playChord(440, 'diminished')}>Play a 440</button>
+        <button onClick={() => playRandomChord(440)}>Play a 440</button>
       )}
     </>
   )

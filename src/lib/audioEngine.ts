@@ -1,18 +1,21 @@
 import { ADSR_PRESETS } from '../data/adsrPresets.ts'
-import type { ChordType } from '@/types/chordTypes.ts'
-import type { ADSRParams } from '@/types/adsr.ts'
+import type { ChordQuality } from '@/constants/chords'
+import type { ADSRParams } from '@/constants/audio.ts'
 
-const CHORD_INTERVALS: Record<ChordType, number[]> = {
+const CHORD_INTERVALS: Record<ChordQuality, number[]> = {
   major: [0, 4, 7],
   minor: [0, 3, 7],
   augmented: [0, 4, 8],
   diminished: [0, 3, 6],
 }
-export const getChordIntervals = (chordType: ChordType): number[] => {
-  return CHORD_INTERVALS[chordType]
+export const getChordIntervals = (chordQuality: ChordQuality): number[] => {
+  return CHORD_INTERVALS[chordQuality]
 }
-const getChordFrequencies = (root: number, chordType: ChordType): number[] => {
-  const chordIntervals = getChordIntervals(chordType)
+const getChordFrequencies = (
+  root: number,
+  chordQuality: ChordQuality
+): number[] => {
+  const chordIntervals = getChordIntervals(chordQuality)
   return chordIntervals.map((interval) => root * Math.pow(2, interval / 12))
 }
 
@@ -102,9 +105,9 @@ export const playNote = (
 export const playChord = (
   audioContext: AudioContext,
   frequency: number,
-  chordType: ChordType = 'major'
+  chordQuality: ChordQuality = 'major'
 ): OscillatorNode[] => {
-  const chordFrequencies = getChordFrequencies(frequency, chordType)
+  const chordFrequencies = getChordFrequencies(frequency, chordQuality)
 
   return chordFrequencies.map((freq) => {
     return playNote(audioContext, freq, 1 / chordFrequencies.length)
