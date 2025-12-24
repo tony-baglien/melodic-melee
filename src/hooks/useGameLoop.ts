@@ -2,26 +2,65 @@ import { useEffect } from 'react'
 import { useGameStore } from '@/store/gameStore'
 
 export function useGameLoop() {
+  // Game Flow
   const gamePhase = useGameStore((state) => state.gamePhase)
-  const countdownTime = useGameStore((state) => state.countdownTime)
-  const updateCountdownTime = useGameStore((state) => state.updateCountdownTime)
+  const startAnswering = useGameStore((state) => state.startAnswering)
+  const nextRound = useGameStore((state) => state.nextRound)
 
+  // Timing
+  const countdownTimeRemaining = useGameStore(
+    (state) => state.countdownTimeRemaining
+  )
+  const answerTimeRemaining = useGameStore((state) => state.answerTimeRemaining)
+  const resultTimeRemaining = useGameStore((state) => state.resultTimeRemaining)
+  const updateCountdownTime = useGameStore((state) => state.updateCountdownTime)
+  const updateAnswerTime = useGameStore((state) => state.updateAnswerTime)
+  const updateResultTime = useGameStore((state) => state.updateResultTime)
+
+  // Durations
   const LISTENING_DURATION = useGameStore((state) => state.LISTEN_DURATION)
+
+  // --- Countdown Phase --- //
   useEffect(() => {
     if (gamePhase !== 'countdown') return
+
     const interval = setInterval(() => {
-      const newTime = countdownTime - 1
-      console.log('countdown time', newTime)
+      const newTime = countdownTimeRemaining - 1
+      console.log(newTime)
       updateCountdownTime(newTime)
     }, 1000)
     return () => clearInterval(interval)
-  }, [gamePhase, countdownTime, updateCountdownTime])
+  }, [gamePhase, countdownTimeRemaining, updateCountdownTime])
 
+  // --- Listening Phase --- //
   useEffect(() => {
     if (gamePhase !== 'listening') return
     const timeout = setTimeout(() => {
       console.log('TODO add answering buss')
+      startAnswering()
     }, LISTENING_DURATION * 1000)
     return () => clearTimeout(timeout)
-  }, [gamePhase, LISTENING_DURATION])
+  }, [gamePhase, LISTENING_DURATION, startAnswering])
+
+  // --- Answering Phase --- //
+  useEffect(() => {
+    if (gamePhase !== 'answering') return
+
+    const interval = setInterval(() => {
+      const newTime = answerTimeRemaining - 1
+      updateAnswerTime(newTime)
+    }, 1000)
+    return () => clearInterval(interval)
+  })
+
+  // --- Results Phase --- //
+  useEffect(() => {
+    if (gamePhase !== 'results') return
+
+    const interval = setInterval(() => {
+      const newTime = resultTimeRemaining - 1
+      updateResultTime(newTime)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [gamePhase, updateResultTime, resultTimeRemaining, nextRound])
 }
