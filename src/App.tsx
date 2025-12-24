@@ -12,9 +12,15 @@ function App() {
   )
   const answerTimeRemaining = useGameStore((state) => state.answerTimeRemaining)
   const resultTimeRemaining = useGameStore((state) => state.resultTimeRemaining)
+
+  const handleStartGame = () => {
+    startRound()
+  }
   return (
     <>
-      {gamePhase === 'ready' && <button onClick={startRound}>Start</button>}
+      {gamePhase === 'ready' && (
+        <button onClick={handleStartGame}>Start</button>
+      )}
       {gamePhase === 'countdown' && (
         <div>
           Get Ready<span>{countdownTimeRemaining}</span>

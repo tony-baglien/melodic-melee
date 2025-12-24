@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import type { ChordQuality } from '@/constants/chords'
 import { useGameStore } from '@/store/gameStore'
 import {
@@ -8,18 +8,18 @@ import {
 
 export const useAudioEngine = () => {
   const audioContextRef = useRef<AudioContext | null>(null)
-  const [isInitialized, setIsIntialized] = useState(false)
 
-  const initAudio = () => {
+  const ensureAudioContext = () => {
     if (!audioContextRef.current) {
       audioContextRef.current = new AudioContext()
-      setIsIntialized(true)
+      console.log('AudioContext created')
     }
-
     if (audioContextRef.current.state === 'suspended') {
       audioContextRef.current.resume()
     }
+    return audioContextRef.current
   }
+
   useEffect(() => {
     return () => {
       if (audioContextRef.current) {
@@ -29,16 +29,19 @@ export const useAudioEngine = () => {
   }, [])
 
   const playNote = (frequency: number) => {
-    playNoteLib(audioContextRef.current!, frequency)
+    const ctx = ensureAudioContext()
+    playNoteLib(ctx, frequency)
   }
 
   const playChord = (frequency: number, chordQuality: ChordQuality) => {
-    playChordLib(audioContextRef.current!, frequency, chordQuality)
+    const ctx = ensureAudioContext()
+    playChordLib(ctx, frequency, chordQuality)
   }
   const playRandomChord = (frequency: number) => {
+    const ctx = ensureAudioContext()
     const randomQuality = useGameStore.getState().getRandomQuality()
-    playChordLib(audioContextRef.current!, frequency, randomQuality)
+    playChordLib(ctx, frequency, randomQuality)
   }
 
-  return { initAudio, isInitialized, playNote, playChord, playRandomChord }
+  return { playNote, playChord, playRandomChord }
 }

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useGameStore } from '@/store/gameStore'
+import { useAudioEngine } from '@/hooks/useAudioEngine'
 
 export function useGameLoop() {
   // Game Flow
@@ -16,6 +17,9 @@ export function useGameLoop() {
   const updateCountdownTime = useGameStore((state) => state.updateCountdownTime)
   const updateAnswerTime = useGameStore((state) => state.updateAnswerTime)
   const updateResultTime = useGameStore((state) => state.updateResultTime)
+
+  // Chords
+  const { playRandomChord } = useAudioEngine()
 
   // Durations
   const LISTENING_DURATION = useGameStore((state) => state.LISTEN_DURATION)
@@ -35,12 +39,15 @@ export function useGameLoop() {
   // --- Listening Phase --- //
   useEffect(() => {
     if (gamePhase !== 'listening') return
+
+    playRandomChord(440)
+
     const timeout = setTimeout(() => {
       console.log('TODO add answering buss')
       startAnswering()
     }, LISTENING_DURATION * 1000)
     return () => clearTimeout(timeout)
-  }, [gamePhase, LISTENING_DURATION, startAnswering])
+  }, [gamePhase, LISTENING_DURATION, startAnswering, playRandomChord])
 
   // --- Answering Phase --- //
   useEffect(() => {
@@ -58,6 +65,7 @@ export function useGameLoop() {
     if (gamePhase !== 'results') return
 
     const interval = setInterval(() => {
+      console.log(resultTimeRemaining)
       const newTime = resultTimeRemaining - 1
       updateResultTime(newTime)
     }, 1000)

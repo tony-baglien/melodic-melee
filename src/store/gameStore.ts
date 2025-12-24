@@ -78,13 +78,13 @@ export const useGameStore = create<GameStore>()(
 
       // Timing
       countdownTimeRemaining: 3,
-      answerTimeRemaining: 8,
+      answerTimeRemaining: 3,
       resultTimeRemaining: 10,
 
       // Config (constants)
       COUNTDOWN_DURATION: 3,
       LISTEN_DURATION: 2,
-      ANSWER_DURATION: 8,
+      ANSWER_DURATION: 3,
       RESULTS_DURATION: 10,
 
       // ---- Actions ---- //
