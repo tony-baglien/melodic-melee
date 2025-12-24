@@ -129,6 +129,7 @@ export const useGameStore = create<GameStore>()(
           set({ gamePhase: 'gameOver' })
         } else {
           set({ gamePhase: 'results' })
+          set({ resultTimeRemaining: get().RESULTS_DURATION })
         }
       },
       endGame: () => {
