@@ -21,6 +21,8 @@ export function useGameLoop() {
   // Chords
   const { playRandomChord } = useAudioEngine()
 
+  const isDevMode = useGameStore((state) => state.isDevMode)
+
   // Durations
   const LISTENING_DURATION = useGameStore((state) => state.LISTEN_DURATION)
 
@@ -30,7 +32,6 @@ export function useGameLoop() {
 
     const interval = setInterval(() => {
       const newTime = countdownTimeRemaining - 1
-      console.log(newTime)
       updateCountdownTime(newTime)
     }, 1000)
     return () => clearInterval(interval)
@@ -39,8 +40,9 @@ export function useGameLoop() {
   // --- Listening Phase --- //
   useEffect(() => {
     if (gamePhase !== 'listening') return
-
     playRandomChord(440)
+
+    if (isDevMode) return // don't auto-advance in dev mode
 
     const timeout = setTimeout(() => {
       console.log('TODO add answering buss')
@@ -58,7 +60,7 @@ export function useGameLoop() {
       updateAnswerTime(newTime)
     }, 1000)
     return () => clearInterval(interval)
-  })
+  }, [gamePhase, answerTimeRemaining, updateAnswerTime, isDevMode])
 
   // --- Results Phase --- //
   useEffect(() => {

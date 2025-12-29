@@ -32,6 +32,10 @@ export type GameStore = {
   answerTimeRemaining: number
   resultTimeRemaining: number
 
+
+  // Dev Mode
+  isDevMode?: boolean
+
   // Config (constants)
   COUNTDOWN_DURATION: number
   LISTEN_DURATION: number
@@ -48,6 +52,9 @@ export type GameStore = {
   endRound: () => void
   endGame: () => void
   playChord: () => void
+
+  // Player Actions
+  selectAnswer: (answer: ChordQuality) => void
 
   // Timing actions
   updateCountdownTime: (time: number) => void
@@ -80,6 +87,10 @@ export const useGameStore = create<GameStore>()(
       countdownTimeRemaining: 3,
       answerTimeRemaining: 3,
       resultTimeRemaining: 10,
+
+
+      // Dev
+      isDevMode: false,
 
       // Config (constants)
       COUNTDOWN_DURATION: 3,
@@ -139,22 +150,33 @@ export const useGameStore = create<GameStore>()(
         set({ gamePhase: 'listening' })
       },
 
+      // Player Actions
+      selectAnswer: (answer: ChordQuality) => {
+        const state = get()
+        if (state.gamePhase !== 'answering') return
+        if (state.player1Answer) return // Return if already answered;
+
+        set({ player1Answer: answer })
+
+        //TODO? Add option to end round after answer (might be weird with how the ai could answer)
+      },
+
       // Timing Actions
       updateCountdownTime: (time: number) => {
         set({ countdownTimeRemaining: time })
-        if (time <= 0) {
+        if (time <= 0 && !get().isDevMode) {
           get().playChord()
         }
       },
       updateAnswerTime: (time: number) => {
         set({ answerTimeRemaining: time })
-        if (time <= 0) {
+        if (time <= 0 && !get().isDevMode) {
           get().endRound()
         }
       },
       updateResultTime: (time: number) => {
         set({ resultTimeRemaining: time })
-        if (time <= 0) {
+        if (time <= 0 && !get().isDevMode) {
           get().nextRound()
         }
       },
