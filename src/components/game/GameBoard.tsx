@@ -19,7 +19,6 @@ export function GameBoard() {
   const resultTimeRemaining = useGameStore((state) => state.resultTimeRemaining)
 
   const handleStartGame = () => {
-    console.log("hello")
     startRound()
   }
   return (
@@ -29,6 +28,7 @@ export function GameBoard() {
           <h1 className="text-4xl font-bold text-center text-text mb-2">Aural Battler</h1>
           <p className="text-center text-text">Current Round: {currentRound} </p>
         </header>
+        
         {/* -- Health Bars -- */}
         <div className="grid grid-cols-1 items-center md:grid-cols-2 gap-8">
           <HealthBar player="player1" playerName="Player One" /> 
@@ -36,9 +36,7 @@ export function GameBoard() {
         </div>
 
         <main>
-          {(gamePhase === 'countdown' || gamePhase === 'answering' || gamePhase === 'results') && (
-            <TimeBar />
-          )}
+          <TimeBar />
           <Container variant="primary">
               {(gamePhase === 'ready' || gamePhase === 'gameOver') &&
                 <Button onClick={handleStartGame} variant="primary" >Start Game</Button>
