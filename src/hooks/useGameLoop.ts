@@ -19,7 +19,8 @@ export function useGameLoop() {
   const updateResultTime = useGameStore((state) => state.updateResultTime)
 
   // Chords
-  const { playRandomChord } = useAudioEngine()
+  const currentChord = useGameStore((state) => state.currentChord)
+  const { playChord } = useAudioEngine()
 
   const isDevMode = useGameStore((state) => state.isDevMode)
 
@@ -40,7 +41,10 @@ export function useGameLoop() {
   // --- Listening Phase --- //
   useEffect(() => {
     if (gamePhase !== 'listening') return
-    playRandomChord(440)
+    
+    if (currentChord) {
+      playChord(440, currentChord)
+    }
 
     if (isDevMode) return // don't auto-advance in dev mode
 
@@ -49,7 +53,7 @@ export function useGameLoop() {
       startAnswering()
     }, LISTENING_DURATION * 1000)
     return () => clearTimeout(timeout)
-  }, [gamePhase, LISTENING_DURATION, startAnswering, playRandomChord])
+  }, [gamePhase, LISTENING_DURATION, startAnswering, playChord, currentChord, isDevMode])
 
   // --- Answering Phase --- //
   useEffect(() => {
@@ -59,6 +63,8 @@ export function useGameLoop() {
       const newTime = answerTimeRemaining - 1
       updateAnswerTime(newTime)
     }, 1000)
+
+
     return () => clearInterval(interval)
   }, [gamePhase, answerTimeRemaining, updateAnswerTime, isDevMode])
 

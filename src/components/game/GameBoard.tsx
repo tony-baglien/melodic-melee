@@ -7,20 +7,24 @@ import { Button } from '@/components/ui/Button'
 import { CountdownDisplay } from '@/components/game/CountdownDisplay';
 import { AnswerDisplay } from '@/components/game/AnswerDisplay'
 import { TimeBar } from '@/components/game/TimeBar'
+import { ResultsDisplay } from './ResultsDisplay'
 
 
 export function GameBoard() {
   useGameLoop()
   const gamePhase = useGameStore((state) => state.gamePhase)
   const startRound = useGameStore((state) => state.startRound)
+  const resetRound = useGameStore((state) => state.resetRound)
   const endRound = useGameStore((state) => state.endGame)
   const currentRound= useGameStore((state) => state.currentRound);
 
-  const resultTimeRemaining = useGameStore((state) => state.resultTimeRemaining)
-
-  const handleStartGame = () => {
+  const handleStartRound = () => {
     startRound()
   }
+  const handleResetRound = () => {
+    resetRound();
+  }
+
   return (
     <div className="min-h-screen bg-tertiary">
       <div className="container mx-auto px-4 py-8">
@@ -38,16 +42,16 @@ export function GameBoard() {
         <main>
           <TimeBar />
           <Container variant="primary">
-              {(gamePhase === 'ready' || gamePhase === 'gameOver') &&
-                <Button onClick={handleStartGame} variant="primary" >Start Game</Button>
+              {(gamePhase === 'ready') &&
+                <Button onClick={handleStartRound} variant="primary" >Start Game</Button>
               }
               {gamePhase === 'countdown' && <CountdownDisplay />}
               {gamePhase === 'listening' && <div>This is playing</div>}
               {gamePhase === 'answering' && <AnswerDisplay />}
-              {gamePhase === 'results' && (
+              {gamePhase === 'results' && <ResultsDisplay /> }
+              {gamePhase == 'gameOver' && (
                 <div>
-                  Here are the results{' '}
-                  {resultTimeRemaining < 5 && <span>{resultTimeRemaining}</span>}
+                  <Button variant="primary" onClick={handleResetRound}>Next Round?</Button>
                 </div>
               )}
 

@@ -15,6 +15,7 @@ export type GameStore = {
   // Game Flow
   gamePhase: GamePhase
   currentRound: number
+  isRunning: boolean;
 
   // Chords
   chordQualities: ChordQuality
@@ -48,6 +49,7 @@ export type GameStore = {
   startGame: () => void
   startRound: () => void
   startAnswering: () => void
+  resetRound: () => void
   nextRound: () => void
   endRound: () => void
   endGame: () => void
@@ -55,6 +57,8 @@ export type GameStore = {
 
   // Player Actions
   selectAnswer: (answer: ChordQuality) => void
+  damagePlayer: (playerNumber: 1 | 2, amount: number) => void
+
 
   // Timing actions
   updateCountdownTime: (time: number) => void
@@ -71,6 +75,7 @@ export const useGameStore = create<GameStore>()(
       // Game Flow
       gamePhase: 'ready',
       currentRound: 0,
+      isRunning: false,
 
       // Chords
       chordQualities: CHORD_QUALITIES,
@@ -78,8 +83,8 @@ export const useGameStore = create<GameStore>()(
       correctAnser: null,
 
       // Players
-      player1Health: 100,
-      player2Health: 100,
+      player1Health: 50,
+      player2Health: 50,
       player1Answer: null,
       player2Answer: null,
 
@@ -96,7 +101,7 @@ export const useGameStore = create<GameStore>()(
       COUNTDOWN_DURATION: 3,
       LISTEN_DURATION: 2,
       ANSWER_DURATION: 3,
-      RESULTS_DURATION: 10,
+      RESULTS_DURATION: 3,
 
       // ---- Actions ---- //
 
@@ -107,6 +112,8 @@ export const useGameStore = create<GameStore>()(
           correctAnswer: null,
           player1Answer: null,
           player2Answer: null,
+          player1Health: 100,
+          player2Health: 100,
         })
       },
       startRound: () => {
@@ -131,12 +138,32 @@ export const useGameStore = create<GameStore>()(
           answerTimeRemaining: get().ANSWER_DURATION,
         })
       },
+      resetRound: () => {
+        set({
+          gamePhase: 'ready',
+          player1Health: 100,
+          player2Health: 100
+        })
+      },
       endRound: () => {
-        // const { player1Answer, player2Answer, correctAnswer } = get()
+        const { player1Answer, player2Answer, correctAnswer } = get()
 
-        //TODO: add health dmamage function
-        const newState = get()
-        if (newState.player1Health <= 0 && newState.player2Health <= 0) {
+        // Compare answers and determine winner
+        const player1Correct = player1Answer === correctAnswer
+        const player2Correct = player2Answer === correctAnswer
+
+        if (player1Correct && player2Correct) {
+        } else if (player1Correct) {
+          get().damagePlayer(2, 25)
+        } else if (player2Correct) {
+          get().damagePlayer(1, 25)
+        } else {
+          get().damagePlayer(1, 10)
+          get().damagePlayer(2, 10)
+        }
+
+        const updatedState = get()
+        if (updatedState.player1Health <= 0 || updatedState.player2Health <= 0) {
           set({ gamePhase: 'gameOver' })
         } else {
           set({ gamePhase: 'results' })
@@ -144,7 +171,8 @@ export const useGameStore = create<GameStore>()(
         }
       },
       endGame: () => {
-        set({ gamePhase: 'gameOver' })
+        set({ gamePhase: 'gameOver'})
+
       },
       playChord: () => {
         set({ gamePhase: 'listening' })
@@ -158,9 +186,35 @@ export const useGameStore = create<GameStore>()(
 
         set({ player1Answer: answer })
 
-        //TODO? Add option to end round after answer (might be weird with how the ai could answer)
-      },
+        // AI logic for player 2
+        const correctAnswer = get().correctAnswer
+        const random = Math.random()
+        let aiAnswer: ChordQuality
 
+        if (random < 0.5) {
+          aiAnswer = correctAnswer!
+        } else {
+          aiAnswer = get().getRandomQuality()
+        }
+
+        set({ player2Answer: aiAnswer })
+
+        const updatedState = get()
+        if (updatedState.player1Answer && updatedState.player2Answer) {
+          get().endRound()
+        }
+      },
+      damagePlayer(playerNumber: 1 | 2, amount: number) {
+        if (playerNumber == 1){
+          const newHealth = get().player1Health - amount;
+          set({player1Health: newHealth})
+          console.log(get().player1Health)
+        } else if (playerNumber == 2){
+          const newHealth = get().player2Health - amount;
+          set({player2Health: newHealth})
+          console.log(get().player2Answer)
+        }
+      },
       // Timing Actions
       updateCountdownTime: (time: number) => {
         set({ countdownTimeRemaining: time })
@@ -184,7 +238,6 @@ export const useGameStore = create<GameStore>()(
       // ChordActions
       getRandomQuality: () => {
         const { chordQualities, currentChord } = get()
-        console.log('chordQualities', chordQualities)
         let available = CHORD_QUALITIES
         if (currentChord && chordQualities.length > 1) {
           available = CHORD_QUALITIES.filter((c) => c !== currentChord)

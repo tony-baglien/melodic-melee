@@ -1,18 +1,19 @@
-import { useGameStore } from '@/store/gameStore';
-interface ResultsDisplayProps {
-    time?: number;
-}
-export function ResultsDisplay({ time }: ResultsDisplayProps) {
-    const answerTimeRemaining = useGameStore((state) => state.answerTimeRemaining)
-    const displayTime = time ?? answerTimeRemaining;
+import { Container } from '../ui/Container';
+import { useGameStore } from '@/store';
 
+export function ResultsDisplay() {
+    const player1Answer = useGameStore((state) => state.player1Answer);
+    const player2Answer = useGameStore((state) => state.player2Answer)
 
     return (
-        <div className="">
-            Here are the results{' '}
-            <div className="text-9xl font-bold">
-                {displayTime <= 3 && <span>{displayTime}</span>}
-            </div>
+        <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Container>
+                { player1Answer }
+            </Container>
+            <Container>
+                { player2Answer }
+            </Container>
         </div>
+        
     );
 }

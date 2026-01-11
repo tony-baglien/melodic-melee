@@ -1,9 +1,6 @@
 import { useGameStore } from "@/store"
-import type { JSX } from "react";
 import { AiFillSound } from "react-icons/ai"
 
-//TODO: Add logic for a standard view when no time is provided (to preserve height)
-//TOD: Make this a bar like the health bar (Add Color)
 //TODO: Add seconds and miliseconds <-- this might be fun to do as a challenge
 
 interface TimeBarProps {
