@@ -83,8 +83,8 @@ export const useGameStore = create<GameStore>()(
       correctAnser: null,
 
       // Players
-      player1Health: 50,
-      player2Health: 50,
+      player1Health: 100,
+      player2Health: 100,
       player1Answer: null,
       player2Answer: null,
 
