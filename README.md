@@ -1,73 +1,102 @@
-# React + TypeScript + Vite
+# Aural Battler
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A competitive two-player music ear training game where players battle by identifying different chord qualities in real-time. Test your ear and prove you're the ultimate chord master!
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Aural Battler** is an interactive web-based game that combines music theory with competitive gaming. Players listen to musical chords and race to correctly identify the quality of the chord. With every correct answer, you deal damage to your opponent. Make mistakes and take damage yourself.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Real-time Audio Synthesis**: Uses the Web Audio API to generate chords with customizable ADSR envelopes
+- **4 Chord Types**: Major, minor, diminished, and augmented chords
+- **Competitive Gameplay**: Two-player battle system with health bars
+- **Responsive UI**: Built with React and Tailwind CSS, works on desktop and tablet devices
+- **Visual Feedback**: Real-time countdown timers, answer selection interface, and results display
+- **Type-Safe Code**: Full TypeScript support with strict type checking
+- **State Management**: Zustand for predictable game state management
 
-## Expanding the ESLint configuration
+## Game Mechanics
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Game Flow
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Ready Phase**: Players start a new round
+2. **Countdown**: 3-second countdown before the chord plays
+3. **Listening**: A chord is played through the speakers (0.5 seconds)
+4. **Answering**: Players have a limited time to select the correct chord quality
+5. **Results**: Game displays correct answers and calculates damage
+6. **Game Over**: Game ends when a player's health reaches 0
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Health & Damage
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Each player starts with 100 health points
+- Correct answers deal damage to the opponent
+- Incorrect answers deal damage to yourself
+- Game ends when any player's health drops to 0
+
+## Setup & Installation
+
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, or pnpm
+
+### Install Dependencies
+
+```bash
+npm install
+# or
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Start the development server with hot module replacement:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+The application will be available at `http://localhost:5173`
+
+### Build
+
+Create an optimized production build:
+
+```bash
+npm run build
+```
+
+### Preview
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+### Testing
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+### Linting
+
+Check code quality:
+
+```bash
+npm run lint
+```
+
+## Future Enhancements
+
+- Difficulty levels (preset chord progressions, faster rounds)
+- Sound configuration (different instruments/tones)
+- Score tracking and leaderboards
+- Accessibility improvements (keyboard shortcuts)
+- AI opponent
+- Extended chord types (7th, suspended, slash chords)
+- Multiplayer networking support
