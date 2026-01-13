@@ -41,7 +41,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -183,6 +182,14 @@ Antonia Gray - [@antonia-gray.bsky.social](https://bsky.app/profile/antonia-gray
 Project Link: [https://github.com/tony-baglien/melodic-melee](https://github.com/tony-baglien/melodic-melee)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Acknowledgments
+
+* Music theory community and educational resources
+* Open source community for inspiration and support!
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->
