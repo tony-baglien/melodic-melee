@@ -60,7 +60,7 @@
 
 ### Built With
 
-[![React][React.js]][React-url][![Tailwind][Tailwind]][Tailwind-url][![Zustand][Zustand]][Zustand-url]
+[![React][React.js]][React-url][![Tailwind][Tailwind]][Tailwind-url][![Zustand][Zustand]][Zustand-url][![Bun][Bun]][Bun-url]
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- GETTING STARTED -->
 
@@ -70,33 +70,30 @@ To get a local copy of Melodic Melee up and running, follow these simple steps.
 
 ### Prerequisites
 
-You'll need Node.js 18 or higher and a package manager (npm, yarn, or pnpm).
+You'll need Bun installed as the package manager and runtime.
 
-* Node.js 18+
-* npm, yarn, or pnpm
+* Install Bun
+```sh
+  curl -fsSL https://bun.sh/install | bash
+```
 
 ### Installation
 
 1. Clone the repository
-   ```sh
+```sh
    git clone https://github.com/tony-baglien/melodic-melee.git
    cd melodic-melee
-   ```
+```
 2. Install dependencies
-   ```sh
-   npm install
-   ```
-   Or with pnpm:
-   ```sh
-   pnpm install
-   ```
+```sh
+   bun install
+```
 
 ### Development
 
 Start the development server with hot module replacement:
-
 ```sh
-npm run dev
+bun dev
 ```
 
 The application will be available at `http://localhost:5173`
@@ -104,25 +101,22 @@ The application will be available at `http://localhost:5173`
 ### Build
 
 Create an optimized production build:
-
 ```sh
-npm run build
+bun run build
 ```
 
 ### Preview
 
 Preview the production build locally:
-
 ```sh
-npm run preview
+bun preview
 ```
 
 ### Testing
 
 Run the test suite:
-
 ```sh
-npm test
+bun test
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -197,6 +191,8 @@ Project Link: [https://github.com/tony-baglien/melodic-melee](https://github.com
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Tailwind]: https://img.shields.io/badge/Tailwind_CSS-grey?style=for-the-badge&logo=tailwind-css&logoColor=38B2AC
-[Tailwind-url]: https://tailwindcss.com/;
-[zustand]: https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=react
-[zustand-url]: https://zustand-demo.pmnd.rs/
+[Tailwind-url]: https://tailwindcss.com/
+[Zustand]: https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=react
+[Zustand-url]: https://zustand-demo.pmnd.rs/
+[Bun]: https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=bun&logoColor=white
+[Bun-url]: https://bun.sh/
