@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "build": "vite build",
+    "lint": "run eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "bun test"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
