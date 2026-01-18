@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+<<<<<<< Updated upstream
     "build": "tsc -b && vite build",
+=======
+    "build": "vite build",
+>>>>>>> Stashed changes
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest"
