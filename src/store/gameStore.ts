@@ -153,6 +153,7 @@ export const useGameStore = create<GameStore>()(
         const player2Correct = player2Answer === correctAnswer
 
         if (player1Correct && player2Correct) {
+          // Both players answered correctly - no damage
         } else if (player1Correct) {
           get().damagePlayer(2, 25)
         } else if (player2Correct) {
