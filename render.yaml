@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: melody-melee
+    branch: main
+    buildCommand: bun install && bun run build
+    staticPublishPath: dist
+    autoDeploy: true
