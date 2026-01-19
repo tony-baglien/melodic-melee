@@ -14,7 +14,7 @@
     <a href="https://github.com/tony-baglien/melodic-melee"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/tony-baglien/melodic-melee">View Demo</a>
+    <a href="https://melodic-melee.onrender.com/">View Demo</a>
     &middot;
     <a href="https://github.com/tony-baglien/melodic-melee/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
