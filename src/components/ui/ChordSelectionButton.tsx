@@ -14,7 +14,7 @@ export function ChordSelectionButton({ chordType }: ChordSelectionButtonProps)  
        selectAnswer(quality) 
 }
     return (
-        <Button variant="primary" onClick={() =>handleOnClick(chordType)}>
+        <Button variant="primary" className="w-full" onClick={() =>handleOnClick(chordType)}>
             {chordType.charAt(0).toUpperCase() + chordType.slice(1)}
         </Button>
     )
