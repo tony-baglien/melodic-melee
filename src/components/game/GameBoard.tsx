@@ -1,3 +1,5 @@
+import { motion } from 'motion/react';
+import { AiFillSound } from 'react-icons/ai';
 import { useGameLoop } from '@/hooks/useGameLoop'
 import { useGameStore } from '@/store/gameStore'
 
@@ -46,8 +48,18 @@ export function GameBoard() {
                 <Button onClick={handleStartRound} variant="primary" >Start Game</Button>
               }
               {gamePhase === 'countdown' && <CountdownDisplay />}
-              {gamePhase === 'listening' && <div>This is playing</div>}
-              {gamePhase === 'answering' && <AnswerDisplay />}
+              {gamePhase === 'listening' && (
+                <motion.div
+                  animate={{ rotate: [-8, 8, -8, 0] }}
+                  transition={{ duration: 0.4, repeat: 0, repeatDelay: 0.6 }}
+                  style={{ originY: 0 }}
+                >
+                  <AiFillSound className="text-text" size={48} />
+                </motion.div>
+              )}
+              {gamePhase === 'answering' && 
+                    <AnswerDisplay />
+              }
               {gamePhase === 'results' && <ResultsDisplay /> }
               {gamePhase == 'gameOver' && (
                 <div>

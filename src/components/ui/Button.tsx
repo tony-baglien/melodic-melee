@@ -15,7 +15,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ...props
     }, ref) => {
 
-        const baseClasses=" px-8 py-4 rounded-md"
+        const baseClasses="px-8 py-4 rounded-md"
         const variantClasses = {
             primary: 'bg-tertiary text-text hover:bg-primary/60 hover:cursor-pointer disabled:opacity-50',
         }

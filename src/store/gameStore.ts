@@ -73,7 +73,7 @@ export const useGameStore = create<GameStore>()(
   devtools(
     (set, get) => ({
       // Game Flow
-      gamePhase: 'ready',
+      gamePhase: 'countdown',
       currentRound: 0,
       isRunning: false,
 
