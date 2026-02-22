@@ -1,8 +1,14 @@
 import './App.css'
 import { GameBoard } from '@/components/game/GameBoard'
+import { DevDashboard } from '@/components/DevDashboard'
 
 function App() {
-  return <GameBoard />
+  return (
+    <>
+      <GameBoard />
+      <DevDashboard />
+    </>
+  )
 }
 
 export default App
