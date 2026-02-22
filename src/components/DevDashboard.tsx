@@ -43,7 +43,7 @@ export function DevDashboard() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 bg-gray-900 text-white p-6 rounded-lg shadow-2xl max-h-[90vh] overflow-y-auto z-50 w-[400px] font-mono text-xs border-2 border-purple-500">
+    <div className="fixed bottom-4 right-4 bg-gray-900 text-white p-6 rounded-lg shadow-2xl max-h-[90vh] overflow-y-auto z-50 w-100 font-mono text-xs border-2 border-purple-500">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-bold text-purple-400">Dev Dashboard</h2>
         <button
