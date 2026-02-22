@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <GameBoard />
-      <DevDashboard />
+      {import.meta.env.DEV && <DevDashboard />}
     </>
   )
 }
