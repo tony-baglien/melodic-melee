@@ -15,7 +15,7 @@ export type GameStore = {
   // Game Flow
   gamePhase: GamePhase
   currentRound: number
-  isRunning: boolean;
+  isRunning: boolean
 
   // Chords
   chordQualities: ChordQuality
@@ -32,7 +32,6 @@ export type GameStore = {
   countdownTimeRemaining: number
   answerTimeRemaining: number
   resultTimeRemaining: number
-
 
   // Dev Mode
   isDevMode?: boolean
@@ -58,7 +57,6 @@ export type GameStore = {
   // Player Actions
   selectAnswer: (answer: ChordQuality) => void
   damagePlayer: (playerNumber: 1 | 2, amount: number) => void
-
 
   // Timing actions
   updateCountdownTime: (time: number) => void
@@ -92,7 +90,6 @@ export const useGameStore = create<GameStore>()(
       countdownTimeRemaining: 3,
       answerTimeRemaining: 3,
       resultTimeRemaining: 10,
-
 
       // Dev
       isDevMode: false,
@@ -142,7 +139,7 @@ export const useGameStore = create<GameStore>()(
         set({
           gamePhase: 'ready',
           player1Health: 100,
-          player2Health: 100
+          player2Health: 100,
         })
       },
       endRound: () => {
@@ -164,7 +161,10 @@ export const useGameStore = create<GameStore>()(
         }
 
         const updatedState = get()
-        if (updatedState.player1Health <= 0 || updatedState.player2Health <= 0) {
+        if (
+          updatedState.player1Health <= 0 ||
+          updatedState.player2Health <= 0
+        ) {
           set({ gamePhase: 'gameOver' })
         } else {
           set({ gamePhase: 'results' })
@@ -172,8 +172,7 @@ export const useGameStore = create<GameStore>()(
         }
       },
       endGame: () => {
-        set({ gamePhase: 'gameOver'})
-
+        set({ gamePhase: 'gameOver' })
       },
       playChord: () => {
         set({ gamePhase: 'listening' })
@@ -206,14 +205,12 @@ export const useGameStore = create<GameStore>()(
         }
       },
       damagePlayer(playerNumber: 1 | 2, amount: number) {
-        if (playerNumber == 1){
-          const newHealth = get().player1Health - amount;
-          set({player1Health: newHealth})
-          console.log(get().player1Health)
-        } else if (playerNumber == 2){
-          const newHealth = get().player2Health - amount;
-          set({player2Health: newHealth})
-          console.log(get().player2Answer)
+        if (playerNumber == 1) {
+          const newHealth = get().player1Health - amount
+          set({ player1Health: newHealth })
+        } else if (playerNumber == 2) {
+          const newHealth = get().player2Health - amount
+          set({ player2Health: newHealth })
         }
       },
       // Timing Actions
