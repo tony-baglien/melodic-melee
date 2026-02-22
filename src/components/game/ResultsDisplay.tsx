@@ -43,7 +43,7 @@ export function ResultsDisplay() {
           animate="end"
           className="text-2xl text-shadow-container relative"
         >
-          {player2Answer ? player1Answer : 'No Answer'}
+          {player2Answer ? player2Answer : 'No Answer'}
           <motion.span
             variants={itemVariants}
             transition={{ type: 'spring', stiffness: 50, delay: 0.5 }}
@@ -56,4 +56,3 @@ export function ResultsDisplay() {
     </div>
   )
 }
-
